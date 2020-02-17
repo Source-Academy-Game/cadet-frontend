@@ -1,0 +1,1 @@
+export const ASSETS_HOST = 'https://s3-ap-southeast-1.amazonaws.com/source-academy-assets/';
