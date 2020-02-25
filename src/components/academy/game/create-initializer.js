@@ -1,6 +1,7 @@
 import {LINKS} from '../../../utils/constants'
 import {history} from '../../../utils/history'
 import {soundPath} from './constants/constants'
+import {fetchGameData, getMissionPointer} from './backend/game-state'
 
 export default function (StoryXMLPlayer, story, username, attemptedAll) {
     function saveToServer() {
@@ -82,7 +83,7 @@ export default function (StoryXMLPlayer, story, username, attemptedAll) {
 
     function initialize(div, canvas) {
         startGame(div, canvas);
-        StoryXMLPlayer.loadStory('master', function () {});
+        fetchGameData(() => StoryXMLPlayer.loadStory(getMissionPointer(), function () {}));
     }
 
     return initialize;
