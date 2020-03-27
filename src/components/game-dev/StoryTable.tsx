@@ -37,9 +37,9 @@ type State = {
   newFolderName: string;
 };
 
-type IMaterialTableProps = IOwnProps;
+export type IMaterialTableProps = IOwnProps;
 
-interface IOwnProps {
+export interface IOwnProps {
   handleCreateMaterialFolder?: (title: string) => void;
   handleDeleteMaterial?: (id: number) => void;
   handleDeleteMaterialFolder?: (id: number) => void;
@@ -53,7 +53,6 @@ class StoryTable extends React.Component<IMaterialTableProps, State> {
 
   public constructor(props: IMaterialTableProps) {
     super(props);
-
     this.state = {
       columnDefs: [
         {
@@ -105,12 +104,13 @@ class StoryTable extends React.Component<IMaterialTableProps, State> {
         { headerName: 'description', field: 'description', hide: true },
         { headerName: 'inserted_at', field: 'inserted_at', hide: true },
         { headerName: 'updated_at', field: 'updated_at', hide: true },
-        { headerName: 'url', field: 'url', hide: true }
+        { headerName: 'url', field: 'url', hide: true },
+
       ],
       dialogOpen: false,
       filterValue: '',
       groupFilterEnabled: false,
-      newFolderName: ''
+      newFolderName: '',
     };
   }
 
