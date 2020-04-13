@@ -44,7 +44,6 @@ export class Game extends React.Component<GameProps, {}> {
 
       const saveDataHandler = (gameState: GameState) => this.props.handleSaveData(gameState);
       setSaveHandler(saveDataHandler);
-      loadStudentData(store.getState().session.gameState);
       
       story(this.div, this.canvas, this.props.name, storyOpts);
       this.props.handleSaveCanvas(this.canvas);
@@ -64,8 +63,9 @@ export class Game extends React.Component<GameProps, {}> {
   }
 
   private async getStoryOpts() {
+    // CUSTOMIZE THIS DEFAULT AS REQUIRED
     const defaultStory = { story: 10, playStory: true };
-    const userStory = this.props.story ? this.props.story : store.getState().session.story;
+    const userStory = store.getState().session.gameState;
     setUserRole(store.getState().session.role);
     return userStory ? userStory : defaultStory;
   }

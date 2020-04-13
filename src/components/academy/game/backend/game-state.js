@@ -19,9 +19,8 @@ export function fetchGameData(userStory, callback) {
     return;
   }
   fetched = true;
-  studentMissionPointer = userStory.story;
-  // not implemented yet
-  studentData = undefined; // userStory.data;
+  studentData = userStory;
+  studentMissionPointer = studentData.missionPointer;
   fetchGlobalMissionPointer(callback);
 }
 
@@ -49,11 +48,6 @@ export function getStudentData() {
   // formerly create-initializer/loadFromServer
   if(studentDataOverride) return studentDataOverride;
   return studentData;
-}
-
-export function loadStudentData(data) {
-  studentData = data;
-  console.log("saving" + studentData);
 }
 
 export function saveStudentData(data) {
