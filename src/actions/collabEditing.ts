@@ -20,6 +20,7 @@ export const setEditorSessionId = (workspaceLocation: WorkspaceLocation, editorS
     editorSessionId
   });
 
+  
 /**
  * Sets sharedb websocket status.
  *

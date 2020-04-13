@@ -23,6 +23,7 @@ var stage;
 export function init(div, canvas, options, callback) {
   renderer = PIXI.autoDetectRenderer(
     Constants.screenWidth,
+
     Constants.screenHeight,
     { backgroundColor: 0x000000, view: canvas }
   );

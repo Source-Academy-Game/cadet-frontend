@@ -1,6 +1,8 @@
 import { storyXMLPathTest, storyXMLPathLive } from '../constants/constants'
 import { isStudent } from './user';
 
+var SaveManager = require('../save-manager/save-manager.js');
+
 /**
  * Handles data regarding the game state. 
  * - The student's list of completed quests and collectibles
@@ -27,6 +29,7 @@ export function fetchGameData(userStory, callback) {
 let studentDataOverride = undefined,
     missionPointerOverride = undefined,
     currentDateOverride = undefined;
+    
 // override student game data
 export function overrideStudentData(data) { studentDataOverride = data; }
 // override student's current mission
@@ -34,15 +37,30 @@ export function overrideMissionPointer(data) { missionPointerOverride = data; }
 // override current date (to determine active missions)
 export function overrideCurrentDate(data) { currentDateOverride = data; }
 
+
+let handleSaveData = undefined;
+
+export function setSaveHandler(saveData) { 
+  console.log("saved!");
+  handleSaveData = saveData; 
+}
+
 export function getStudentData() {
   // formerly create-initializer/loadFromServer
   if(studentDataOverride) return studentDataOverride;
   return studentData;
 }
 
-export function saveStudentData(json) {
-  // formerly create-initializer/saveToServer
-  return json;
+export function loadStudentData(data) {
+  studentData = data;
+  console.log("saving" + studentData);
+}
+
+export function saveStudentData(data) {
+  console.log('saving student data');
+  if (handleSaveData !== undefined) {
+    handleSaveData(data)
+  }
 }
 
 export function saveCollectible(collectible) {
@@ -50,13 +68,19 @@ export function saveCollectible(collectible) {
   if (typeof Storage !== 'undefined') {
     localStorage.setItem(collectible, 'collected');
   }
+  saveStudentData()
 }
 
 export function saveQuest(questId) {
   // currently local but we should eventually migrate to backend
-  if (typeof Storage !== 'undefined') {
-    localStorage.setItem(questId, 'completed');
-  }
+  console.log(localStorage.getItem(questId));
+  // if (typeof Storage !== 'undefined') {
+  //   localStorage.setItem(questId, 'completed');
+  // }
+  studentData["completed_quests"]["questId"] = 'completed';
+  console.log(studentData);
+  saveStudentData(data);
+  
 }
 
 function getStudentMissionPointer() {

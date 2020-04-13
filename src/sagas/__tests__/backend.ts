@@ -68,7 +68,11 @@ describe('Test FETCH_AUTH Action', () => {
       name: 'user',
       role: 'student' as Role,
       story: {} as Story,
-      grade: 1
+      grade: 1,
+      gameState: {
+        collectibles: { },
+        completed_quests: { }
+      }
     };
     return expectSaga(backendSaga)
       .call(postAuth, luminusCode)
@@ -86,7 +90,11 @@ describe('Test FETCH_AUTH Action', () => {
       name: 'user',
       role: 'student' as Role,
       story: {} as Story,
-      grade: 1
+      grade: 1,
+      gameState: {
+        collectibles: { },
+        completed_quests: { }
+      },
     };
     return expectSaga(backendSaga)
       .provide([[call(postAuth, luminusCode), null], [call(getUser, mockTokens), user]])

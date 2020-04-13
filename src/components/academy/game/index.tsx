@@ -1,13 +1,14 @@
 import * as React from 'react';
-
+import { setSaveHandler, loadStudentData } from './backend/game-state'
 import { store } from '../../../createStore';
-import { Story } from '../../../reducers/states';
+import { Story, GameState } from '../../../reducers/states';
 import { setUserRole } from './backend/user';
 
 type GameProps = DispatchProps & StateProps;
 
 export type DispatchProps = {
   handleSaveCanvas: (c: HTMLCanvasElement) => void;
+  handleSaveData: (s :GameState) => void;
 };
 
 export type StateProps = {
@@ -40,6 +41,11 @@ export class Game extends React.Component<GameProps, {}> {
     const story: any = (await import('./game.js')).default;
     if (this.props.canvas === undefined) {
       const storyOpts = await this.getStoryOpts();
+
+      const saveDataHandler = (gameState: GameState) => this.props.handleSaveData(gameState);
+      setSaveHandler(saveDataHandler);
+      loadStudentData(store.getState().session.gameState);
+      
       story(this.div, this.canvas, this.props.name, storyOpts);
       this.props.handleSaveCanvas(this.canvas);
     } else {

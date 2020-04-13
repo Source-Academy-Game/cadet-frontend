@@ -24,6 +24,7 @@ import { store } from '../createStore';
 import { castLibrary } from '../utils/castBackend';
 import { BACKEND_URL } from '../utils/constants';
 import { showWarningMessage } from '../utils/notification';
+import { GameState } from 'src/reducers/states';
 
 /**
  * @property accessToken - backend access token
@@ -99,6 +100,24 @@ export async function getUser(tokens: Tokens): Promise<object | null> {
     return null;
   }
   return await resp.json();
+}
+
+
+/**
+ * PUT /user/game_states/
+ */
+export async function putUserGameState(
+  game_states: GameState,
+  tokens: Tokens
+): Promise<Response | null> {
+  const resp = await request('user/game_states/save', 'PUT', {
+    accessToken: tokens.accessToken,
+    refreshToken: tokens.refreshToken,
+    body: {
+      new_game_states: JSON.stringify(game_states)
+    }
+  });
+  return resp;
 }
 
 /**

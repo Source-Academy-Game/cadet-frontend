@@ -1,7 +1,7 @@
 import {LINKS} from '../../../utils/constants'
 import {history} from '../../../utils/history'
 import {soundPath} from './constants/constants'
-import {fetchGameData, getMissionPointer, getStudentData, saveCollectible, saveQuest, saveStudentData} from './backend/game-state'
+import {fetchGameData, getMissionPointer, getStudentData, saveCollectible, saveQuest} from './backend/game-state'
 
 export default function (StoryXMLPlayer, username, userStory) {
 

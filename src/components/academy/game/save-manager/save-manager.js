@@ -1,5 +1,3 @@
-import {saveStudentData} from '../backend/game-state';
-
 var LocationManager = require('../location-manager/location-manager.js');
 var QuestManager = require('../quest-manager/quest-manager.js');
 var StoryManager = require('../story-manager/story-manager.js');
@@ -11,6 +9,7 @@ var Utils = require('../utils/utils.js');
 var actionSequence = [];
 
 export function init(saveData, callback) {
+
   if (saveData) {
     alert(saveData);
     saveData = JSON.parse(saveData);
@@ -62,7 +61,6 @@ export function unmarkPending() {
   if (last.type !== 'pending') {
     console.error('The pending logic is wrong');
   }
-  saveGame();
 }
 
 export function hasPending() {
@@ -89,7 +87,6 @@ export function removeActions(filters, willUpdate) {
   if (willUpdate) {
     updateGameMap();
   }
-  saveGame();
 }
 
 export function saveUnlockQuest(storyId, questId) {
@@ -99,7 +96,6 @@ export function saveUnlockQuest(storyId, questId) {
     questId: questId
   });
   markPending();
-  saveGame();
 }
 
 export function saveLoadStories(stories) {
@@ -107,16 +103,9 @@ export function saveLoadStories(stories) {
     actionSequence.push({ type: 'loadStory', storyId: storyId });
   });
   markPending();
-  saveGame();
 }
 
-function saveGame() {
-  saveStudentData(
-    JSON.stringify({
-      actionSequence: actionSequence,
-      startLocation: LocationManager.getStartLocation()
-    })
-  );
+export function saveGame() {
 }
 
 export function updateGameMap() {
@@ -159,7 +148,6 @@ export function saveSeeDisplayOnceSeq(node, locName) {
     action.questId = quest.id;
   }
   actionSequence.push(action);
-  saveGame();
 }
 
 export function saveClickTempObject(node, storyId) {
@@ -171,5 +159,4 @@ export function saveClickTempObject(node, storyId) {
     action.questId = node.parentElement.parentElement.parentElement.id;
   }
   actionSequence.push(action);
-  saveGame();
 }

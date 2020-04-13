@@ -17,6 +17,8 @@ export function getExternalOverlay() {
 }
 
 export function playExternalAction(node) {
+  console.log('playing external action')
+  console.log(node);
   if (node.tagName != 'EXTERNAL_ACTION') {
     return;
   }
