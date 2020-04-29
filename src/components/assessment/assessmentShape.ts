@@ -1,4 +1,4 @@
-import { SourceError } from 'js-slang/dist/types';
+import { SourceError, Variant } from 'js-slang/dist/types';
 
 /*
  * Used to display information regarding an assessment in the UI.
@@ -27,6 +27,7 @@ export interface IAssessmentOverview {
   xp: number;
   gradingStatus: GradingStatus;
   private?: boolean;
+  isPublished?: boolean;
 }
 
 export enum AssessmentStatuses {
@@ -166,6 +167,7 @@ type ExternalLibrary = {
 
 export type Library = {
   chapter: number;
+  variant?: Variant;
   external: ExternalLibrary;
   globals: Array<{
     0: string;
